@@ -4,7 +4,7 @@ FROM webdevops/php-nginx-dev:8.0
 
 RUN set -x \
     # Get node prepared
-	&& apt-get install curl software-properties-common \
+	&& apt-get install curl \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
 
 	# prep yarn

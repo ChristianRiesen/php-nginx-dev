@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+    main:
+        image: christianriesen/php-nginx-dev
+		ports:
+            # Expose the app under port 8042 locally to not collide with other things
+			- 8042:80
+        depends_on:
+            - mysql
+            - redis
+        volumes:
+            - type: bind
+              source: "."
+              target: /app
+              consistency: delegated
+            - type: bind
+              source: etc/vhost.conf
+              target: /opt/docker/etc/nginx/vhost.conf
+			  
+    mysql:
+        image: mysql:8
+        command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+        volumes:
+            - "mysql:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            # If you want to connect with a tool, use port 3308
+			- 3308:3306
+    redis:
+        image: redis:6
+
+volumes:
+    mysql:
