@@ -4,8 +4,8 @@ FROM webdevops/php-nginx-dev:8.0
 
 RUN set -x \
     # Get node prepared
-	&& sudo apt-get install curl software-properties-common \
-    && curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
+	&& apt-get install curl software-properties-common \
+    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
 
 	# prep yarn
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
